@@ -1,1 +1,0 @@
-Running on MPS is abou % 130 faster than CPU

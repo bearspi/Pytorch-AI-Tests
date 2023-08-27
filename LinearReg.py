@@ -1,9 +1,18 @@
 import torch
 from torch import nn
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 mps_device = torch.device('mps:0' if torch.has_mps else 'cpu')
 
+#Modeli kaydetmek için bir dosya ayarlıyoruz
+Model_Path = Path("models")
+Model_Path.mkdir(parents=True, exist_ok=True)
+
+#Modelin ismini koyuyoruz
+Model_Name = "Pytorch_LinearReg_Model_0.pth"
+
+Model_Save_Path = Model_Path / Model_Name
 
 # Eğim
 weigth = 0.69
@@ -21,7 +30,7 @@ end = 1
 step = 0.02
 
 #Kaç kere modelin eğitileceği
-epochs = 200
+epochs = 200000
 
 
 #Verileri oluşturuyoruz
@@ -75,7 +84,7 @@ model_0 = LinearRegressionModel()
 loss_fn = nn.L1Loss()
 
 #Bir optimzör seçiyoruz ben burda SGD algoritmasını seçtim buda sürekli yokuş aşığı giderek train_y ile tahmin ettiği verinin farkını azaltmaya çalışıyor lr her paremetreyi ise kaçar kaçar azaltacağını belirtiyor 
-optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.01)
+optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.00001)
 
 #Bir öğrenme döngüsü açıyoruz
 for epoch in range(epochs):
@@ -106,9 +115,13 @@ for epoch in range(epochs):
             y_predictions = model_0(X_test)
             test_loss = loss_fn(y_predictions, y_test)
         print(f"Epoch: {epoch} | Loss: {loss} | Test Loss: {test_loss}")
+model_0.eval()
+#Modeli Kaydetiyoruz
+torch.save(model_0.state_dict(), Model_Save_Path)
+print(model_0.state_dict())
 
 
-
+plot_predictions(predictions=model_0(X_test).detach().numpy())
 
 
 

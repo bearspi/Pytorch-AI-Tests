@@ -17,3 +17,5 @@ When converting `NumPy arrays` -> `PyTorch Tensors` it cames as **64 Bit** value
 
 Numpy and PyPlot can't work with datas on MPS (GPU).
 "Loss Func" can be called "Cost Func" or "Criterion"
+
+When making NonBinary Classer dont forget to change the y value to a `torch.LongTensor`

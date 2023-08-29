@@ -19,3 +19,9 @@ Numpy and PyPlot can't work with datas on MPS (GPU).
 "Loss Func" can be called "Cost Func" or "Criterion"
 
 When making NonBinary Classer dont forget to change the y value to a `torch.LongTensor`
+Dont forget to switch between eval and train mode.
+
+Convo layers and `Adam` optimizer doesnt give great results.
+
+FMNIST_MODEL_V5 100 epochs test acc: 93.16%
+FMNIST_MODEL_V6 100 epochs test acc: 93.23%
